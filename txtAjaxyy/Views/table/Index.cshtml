@@ -1,0 +1,56 @@
+﻿@using System.Globalization;
+@using System.Collections;
+@model txtAjaxyy.Models.ViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+    @*@using (Html.BeginForm())
+         {
+        <p>
+            工號: @Html.TextBox("searchString")
+            <input type="submit" value="查詢" />
+        </p>
+         }*@
+
+@*找當前頁 搜尋條件會用GET丟 新增修改會用POST去丟
+    GET去丟好處是參數好保留，缺點資訊安全不夠
+    Post去出去就沒了*@
+<form action="@Request.Url.PathAndQuery" method="get">
+    <div>
+        <input type="text" name="getJobID" placeholder="查詢工號" />
+        <input type="submit" value="查詢" name="JobID">
+    </div>
+</form>
+<table class="table">
+    <tr>
+        <th>工號</th>
+        <th>姓名</th>
+        <th>日期</th>
+        <th>上下班</th>
+        <th>上下班時間</th>
+        <th>打卡鐘名稱</th>
+    </tr>
+    @*先判斷Model.ayList筆數>1*@
+
+    @if (Model.ayList.Count > 0)
+    {
+        foreach (Hashtable ht in Model.ayList)
+        {
+            DateTime dt = DateTime.Parse(ht["workTime"].ToString());
+            Int32 workt = Int32.Parse((ht["work"].ToString()));
+            <tr>
+                <td>@ht["jobID"].ToString()</td>
+                <td>@ht["name"].ToString()</td>
+                <td>@dt.ToString("yyyy/MM/dd")</td>
+                <td>@((workt==1)? "上班" : "下班")</td>
+                <td>@dt.ToString("HH:ss")</td>
+                <td>@ht["punchBell"].ToString()</td>
+            </tr>
+        }
+    }
+
+</table>

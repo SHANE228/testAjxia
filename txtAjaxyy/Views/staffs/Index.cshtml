@@ -1,0 +1,164 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<txtAjaxyy.Models.staffs>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().jobID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().department)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().CrePerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().revPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().dueDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().quitDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().SID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().phone)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.jobID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department)
+            </td>
+            <td>
+                @if (item.state == 1)
+                {
+                    <span>在職</span>
+                }
+                else if (item.state == 2)
+                {
+                    <span>離職</span>
+                }
+                else
+                {
+                    <span>留職</span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @switch (item.level)
+                {
+                    case 1:
+                        <span>一職等</span>
+                        break;
+                    case 2:
+                        <span>二職等</span>
+                        break;
+                    case 3:
+                        <span>三職等</span>
+                        break;
+                    case 4:
+                        <span>四職等</span>
+                        break;
+                    case 5:
+                        <span>五職等</span>
+                        break;
+                    case 6:
+                        <span>六職等</span>
+                        break;
+                    case 7:
+                        <span>七職等</span>
+                        break;
+                    case 8:
+                        <span>八職等</span>
+                        break;
+                    case 9:
+                        <span>九職等</span>
+                        break;
+                    case 10:
+                        <span>十職等</span>
+                        break;
+                    case 11:
+                        <span>十一職等</span>
+                        break;
+                    case 12:
+                        <span>十二職等</span>
+                        break;
+                }
+            </td>
+            <td>
+                @((item.sex==1) ? "男" : "女")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CrePerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.revPerson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quitDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager(Model, i => Url.Action("Index", "staffs", new { i, search = Request.QueryString["search"] }))

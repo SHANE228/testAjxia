@@ -1,0 +1,45 @@
+﻿@using System.Globalization;
+@model txtAjaxyy.Models.bellTable
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+
+
+    @using (Html.BeginForm())
+    {
+    <p>
+        工號: @Html.TextBox("searchString")
+        <input type="submit" value="查詢" />
+    </p>
+}
+
+
+
+    <table class="table">
+        <tr>
+            <th>工號</th>
+            <th>姓名</th>
+            <th>日期</th>
+            <th>上下班</th>
+            <th>上下班時間</th>
+            <th>打卡鐘名稱</th>
+        </tr>
+        <--!var改雜湊表  -->
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@Html.DisplayFor(modelItem => item.jobID)</td>
+                <td>@item.workTime.ToString("yyyy/MM/dd")</td>
+                <td>@((item.work==1)? "上班" : "下班")</td>
+                <td>@item.workTime.ToString("HH:mm")</td>
+                <td>@Html.DisplayFor(modelItem => item.punchBell)</td>
+
+            </tr>
+        }
+
+    </table>
